@@ -39,11 +39,15 @@ func GetPrDetails(w http.ResponseWriter, r *http.Request) {
 	prNumber := event.PullRequest.Number
 	filesUrl := fmt.Sprintf("%s/pulls/%d/files", event.Repository.URL, prNumber)
 
+	fmt.Println("url :", filesUrl)
+
 	req, err := http.NewRequest("GET", filesUrl, nil)
 	if err != nil {
 		http.Error(w, "Failed to create request", http.StatusInternalServerError)
 		return
 	}
+
+	fmt.Println("ACCESS TOKEN:", os.Getenv("GITHUB_ACCESS_TOKEN"))
 
 	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", os.Getenv("GITHUB_ACCESS_TOKEN")))
 	req.Header.Set("Accept", "application/vnd.github.v3+json")
@@ -51,14 +55,14 @@ func GetPrDetails(w http.ResponseWriter, r *http.Request) {
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
-		http.Error(w, "Failed to fetch files", http.StatusInternalServerError)
+		http.Error(w, "Failed to fetch files 1", http.StatusInternalServerError)
 		println(err)
 		return
 	}
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		http.Error(w, "Failed to fetch files", http.StatusInternalServerError)
+		http.Error(w, "Failed to fetch files 2", http.StatusInternalServerError)
 		return
 	}
 
