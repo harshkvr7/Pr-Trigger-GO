@@ -7,8 +7,7 @@ import (
 )
 
 type PRData struct {
-	Number int    `json:"number"`
-	URL    string `json:"url"`
+	URL string `json:"url"`
 }
 
 func SendGreeting(w http.ResponseWriter, r *http.Request) {
@@ -25,5 +24,5 @@ func GetPrDetails(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Printf("PR Number: %d, Repository URL: %s\n", prData.Number, prData.URL)
+	fmt.Printf("Repository URL: %s\n", prData.URL)
 }
