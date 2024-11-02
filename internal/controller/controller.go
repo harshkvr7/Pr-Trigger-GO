@@ -52,6 +52,7 @@ func GetPrDetails(w http.ResponseWriter, r *http.Request) {
 	resp, err := client.Do(req)
 	if err != nil {
 		http.Error(w, "Failed to fetch files", http.StatusInternalServerError)
+		println(err)
 		return
 	}
 	defer resp.Body.Close()
